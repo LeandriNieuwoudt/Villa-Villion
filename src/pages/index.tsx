@@ -10,7 +10,6 @@ import { api } from "~/utils/api";
 const Home: NextPage = () => {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const { isLoaded, isSignedIn, user } = useUser();
-  const { userId } = useAuth();
 
   if (!isLoaded) {
     return null;
@@ -25,6 +24,11 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
       <UserButton />
+      {isSignedIn && (
+        <div>
+          <h1 className="text-3xl font-bold text-white m-5">Hello {user?.fullName || ''}</h1>
+        </div>
+      )}
       </main>
     </>
   );
